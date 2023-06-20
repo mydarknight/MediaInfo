@@ -35,5 +35,5 @@ build_script:
 
 artifacts:
   - path: Project\MSVC2015
-    name: MediaInfo_MSVC2015.zip
-
+    name: MediaInfo_MSVC2015_%solution_name%.zip
+    type: zip
