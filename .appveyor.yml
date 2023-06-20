@@ -27,11 +27,14 @@ before_build:
 environment:
   matrix:
   - solution_name: CLI
+    solution_filename: MediaInfo.vcxproj
   - solution_name: GUI
+    solution_filename: MediaInfo_GUI.vcxproj
   - solution_name: MediaInfo_Qt
+    solution_filename: MediaInfo_Qt.vcxproj
 
 build_script:
-  - msbuild Project\MSVC2015\%solution_name%\MediaInfo.vcxproj
+  - msbuild Project\MSVC2015\%solution_name%\%solution_filename%
 
 artifacts:
   - path: Project\MSVC2015
