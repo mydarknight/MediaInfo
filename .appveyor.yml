@@ -38,7 +38,9 @@ environment:
     solution_filename: MediaInfo.vcxproj
 
 build_script:
-  - cmd: if not exist "..\Qt" MKLINK /J "..\Qt" "C:\Qt\5.6.3"
+  - cmd: if exist "..\Qt" rd "..\Qt"
+  - cmd: if %solution_name%_%PLATFORM%==MediaInfo_Qt_Win32 MKLINK /J "..\Qt" "C:\Qt\5.6.3\msvc2015"
+  - cmd: if %solution_name%_%PLATFORM%==MediaInfo_Qt_x64 MKLINK /J "..\Qt" "C:\Qt\5.6.3\msvc2015_64"
   - cmd: if %solution_name%==MediaInfo_Qt call Project\MSVC2015\%solution_name%\qt_update.bat
   - msbuild Project\MSVC2015\%solution_name%\%solution_filename%
 
