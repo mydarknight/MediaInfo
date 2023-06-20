@@ -27,3 +27,16 @@ before_build:
 build:
   project: Project\MSVC2015\CLI\MediaInfo.vcxproj
   verbosity: quiet
+
+build:
+  project: Project\MSVC2015\GUI\MediaInfo.vcxproj
+  verbosity: quiet
+
+build:
+  project: Project\MSVC2015\MediaInfo_Qt\MediaInfo.vcxproj
+  verbosity: quiet
+
+artifacts:
+  - path: MediaInfo_MSVC2015.zip
+    name: Project\MSVC2015
+
