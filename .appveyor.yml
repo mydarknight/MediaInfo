@@ -43,7 +43,7 @@ build_script:
   - cmd: if %solution_name%_%PLATFORM%==MediaInfo_Qt_x64 MKLINK /J "..\Qt" "C:\Qt\5.6.3\msvc2015_64"
   #- cmd: if %solution_name%==MediaInfo_Qt pushd Project\MSVC2015\%solution_name% && call qt_update.bat && popd
   - cmd: curl.exe -L -O https://raw.githubusercontent.com/mbuilov/sed-windows/a8de79483710eb746ab4362aa4202115169a2848/sed-4.9-x64.exe
-  - cmd: for /r C:\projects\wxWidgets\build\msw\ %%i IN (*.vcxproj) DO .\sed-4.9-x64.exe -i "s/<AdditionalLibraryDirectories>/<AdditionalLibraryDirectories>C:\\projects\\wxWidgets\\lib\\vc_lib\\mswud;C:\\projects\\wxWidgets\\include;/gi" %%i
+  - cmd: .\sed-4.9-x64.exe -i "s#wx/setup.h#wx/msw/setup.h#gi" C:\projects\wxWidgets\include\wx\platform.h
   - msbuild Project\MSVC2015\%solution_name%\%solution_filename%
 
 artifacts:
