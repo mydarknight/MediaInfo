@@ -30,8 +30,8 @@ before_build:
 
 environment:
   matrix:
-  - solution_name: MediaInfo_Qt
-    solution_filename: MediaInfo_Qt.vcxproj
+  #- solution_name: MediaInfo_Qt
+   # solution_filename: MediaInfo_Qt.vcxproj
   - solution_name: GUI
     solution_filename: MediaInfo_GUI.vcxproj
   - solution_name: CLI
@@ -42,7 +42,8 @@ build_script:
   - cmd: if %solution_name%_%PLATFORM%==MediaInfo_Qt_Win32 MKLINK /J "..\Qt" "C:\Qt\5.6.3\msvc2015"
   - cmd: if %solution_name%_%PLATFORM%==MediaInfo_Qt_x64 MKLINK /J "..\Qt" "C:\Qt\5.6.3\msvc2015_64"
   #- cmd: if %solution_name%==MediaInfo_Qt pushd Project\MSVC2015\%solution_name% && call qt_update.bat && popd
-  - cmd: if %solution_name%==GUI copy /y ..\wxWidgets\include\msvc\wx\setup.h ..\wxWidgets\include\wx\setup.h
+  - cmd: curl.exe -L -O https://raw.githubusercontent.com/mbuilov/sed-windows/a8de79483710eb746ab4362aa4202115169a2848/sed-4.9-x64.exe
+  - cmd: for /r C:\projects\wxWidgets\build\msw\ %i IN (*.vcxproj) DO (.\sed-4.9-x64.exe -i 's/<AdditionalLibraryDirectories>/<AdditionalLibraryDirectories>C:\projects\wxWidgets\lib\vc_lib\mswud;/gi' %i)
   - msbuild Project\MSVC2015\%solution_name%\%solution_filename%
 
 artifacts:
