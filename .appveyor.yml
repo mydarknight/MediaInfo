@@ -12,7 +12,13 @@ before_build:
   - cmd: git -C .. clone -q https://github.com/MediaArea/zlib.git
   - cmd: git -C .. clone -q https://github.com/MediaArea/ZenLib.git
   - cmd: git -C .. clone -q https://github.com/MediaArea/MediaInfoLib.git
-  - cmd: git -C .. clone -q https://github.com/MediaArea/wxWidgets.git
+  - cmd: git -C .. clone -q https://github.com/MediaArea/wxWidgets.git  
+  - cmd: curl.exe -L -O https://mediaarea.net/download/source/mediainfo/23.04/mediainfo_23.04_AllInclusive.7z
+  - cmd: 7z x "mediainfo_23.04_AllInclusive.7z" "mediainfo_AllInclusive\wxWidgets" -o..\ -aoa
+  - cmd: move /y ..\mediainfo_AllInclusive\wxWidgets ..\wxWidgets
+  - cmd: rd ..\mediainfo_AllInclusive
+  - cmd: curl.exe -L -O https://raw.githubusercontent.com/mbuilov/sed-windows/a8de79483710eb746ab4362aa4202115169a2848/sed-4.9-x64.exe
+  - cmd: .\sed-4.9-x64.exe -i "s#wx/setup.h#wx/msw/setup.h#gi" C:\projects\wxWidgets\include\wx\platform.h
   - ps: >-
       $Env:PATH += ";C:/Program Files (x86)/Microsoft Visual Studio 14.0/VC/bin";
       $Env:PATH += ";C:/Program Files (x86)/Microsoft Visual Studio 14.0/VC/bin/x86_amd64";
@@ -42,8 +48,6 @@ build_script:
   - cmd: if %solution_name%_%PLATFORM%==MediaInfo_Qt_Win32 MKLINK /J "..\Qt" "C:\Qt\5.6.3\msvc2015"
   - cmd: if %solution_name%_%PLATFORM%==MediaInfo_Qt_x64 MKLINK /J "..\Qt" "C:\Qt\5.6.3\msvc2015_64"
   #- cmd: if %solution_name%==MediaInfo_Qt pushd Project\MSVC2015\%solution_name% && call qt_update.bat && popd
-  - cmd: curl.exe -L -O https://raw.githubusercontent.com/mbuilov/sed-windows/a8de79483710eb746ab4362aa4202115169a2848/sed-4.9-x64.exe
-  - cmd: .\sed-4.9-x64.exe -i "s#wx/setup.h#wx/msw/setup.h#gi" C:\projects\wxWidgets\include\wx\platform.h
   - msbuild Project\MSVC2015\%solution_name%\%solution_filename%
 
 artifacts:
