@@ -24,13 +24,14 @@ before_build:
         Pop-Location
       }
 
-build:
-  - project: Project\MSVC2015\CLI\MediaInfo.vcxproj
-    verbosity: quiet
-  - project: Project\MSVC2015\GUI\MediaInfo.vcxproj
-    verbosity: quiet
-  - project: Project\MSVC2015\MediaInfo_Qt\MediaInfo.vcxproj
-    verbosity: quiet
+environment:
+  matrix:
+  - solution_name: Project\MSVC2015\CLI\MediaInfo.vcxproj
+  - solution_name: Project\MSVC2015\GUI\MediaInfo.vcxproj
+  - solution_name: Project\MSVC2015\MediaInfo_Qt\MediaInfo.vcxproj
+
+build_script:
+  - msbuild %solution_name%
 
 artifacts:
   - path: MediaInfo_MSVC2015.zip
