@@ -190,10 +190,22 @@ void __fastcall TMainF::GUI_Configure()
         Width=700;
     if (Screen->Width>=1280)
         Width=830;
+    if (Screen->Width>=1920)
+        Width=1040;
+    if (Screen->Width>=2560)
+        Width=1250;
+    if (Screen->Width>=2700)
+        Width=1660;
     if (Screen->Height>=768)
         Height=500;
     if (Screen->Height>=1024)
         Height=600;
+    if (Screen->Height>=1080)
+        Height=750;
+    if (Screen->Height>=1440)
+        Height=900;
+    if (Screen->Height>=1800)
+        Height=1200;
     Left=(Screen->Width-Width)/2;
     Top=(Screen->Height-Height)/2;
 
