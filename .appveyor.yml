@@ -9,7 +9,6 @@ platform:
 
 before_build:
   - cmd: ver
-  - cmd: tree "C:\Qt\5.6.3" /F
   - cmd: git -C .. clone -q https://github.com/MediaArea/zlib.git
   - cmd: git -C .. clone -q https://github.com/MediaArea/ZenLib.git
   - cmd: git -C .. clone -q https://github.com/MediaArea/MediaInfoLib.git
@@ -31,15 +30,16 @@ before_build:
 
 environment:
   matrix:
-  - solution_name: CLI
-    solution_filename: MediaInfo.vcxproj
-  - solution_name: GUI
-    solution_filename: MediaInfo_GUI.vcxproj
   - solution_name: MediaInfo_Qt
     solution_filename: MediaInfo_Qt.vcxproj
+  - solution_name: GUI
+    solution_filename: MediaInfo_GUI.vcxproj
+  - solution_name: CLI
+    solution_filename: MediaInfo.vcxproj
 
 build_script:
   - cmd: if not exist "..\Qt" MKLINK /J "..\Qt" "C:\Qt\5.6.3"
+  - cmd: if %solution_name%==MediaInfo_Qt call Project\MSVC2015\%solution_name%\qt_update.bat
   - msbuild Project\MSVC2015\%solution_name%\%solution_filename%
 
 artifacts:
