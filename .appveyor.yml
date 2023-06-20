@@ -1,3 +1,5 @@
+image: Visual Studio 2015
+
 configuration:
   - Release
 
@@ -10,6 +12,7 @@ before_build:
   - cmd: git -C .. clone -q https://github.com/MediaArea/ZenLib.git
   - cmd: git -C .. clone -q https://github.com/MediaArea/MediaInfoLib.git
   - cmd: git -C .. clone -q https://github.com/MediaArea/wxWidgets.git
+  - cmd: tree -f "C:\Qt\5.6.3"
   - ps: >-
       $Env:PATH += ";C:/Program Files (x86)/Microsoft Visual Studio 14.0/VC/bin";
       $Env:PATH += ";C:/Program Files (x86)/Microsoft Visual Studio 14.0/VC/bin/x86_amd64";
@@ -35,9 +38,10 @@ environment:
     solution_filename: MediaInfo_Qt.vcxproj
 
 build_script:
+  - cmd: if not exist "..\Qt" MKLINK /J "..\Qt" "C:\Qt\5.6.3"
   - msbuild Project\MSVC2015\%solution_name%\%solution_filename%
 
 artifacts:
-  - path: Project\MSVC2015
+  - path: Project\MSVC2015\%solution_name%\%PLATFORM%
     name: MediaInfo_MSVC2015_%solution_name%_%PLATFORM%
     type: zip
