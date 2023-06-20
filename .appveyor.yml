@@ -9,6 +9,7 @@ before_build:
   - cmd: git -C .. clone -q https://github.com/MediaArea/zlib.git
   - cmd: git -C .. clone -q https://github.com/MediaArea/ZenLib.git
   - cmd: git -C .. clone -q https://github.com/MediaArea/MediaInfoLib.git
+  - cmd: git -C .. clone -q https://github.com/MediaArea/wxWidgets.git
   - ps: >-
       $Env:PATH += ";C:/Program Files (x86)/Microsoft Visual Studio 14.0/VC/bin";
       $Env:PATH += ";C:/Program Files (x86)/Microsoft Visual Studio 14.0/VC/bin/x86_amd64";
@@ -38,5 +39,5 @@ build_script:
 
 artifacts:
   - path: Project\MSVC2015
-    name: MediaInfo_MSVC2015_%solution_name%.zip
+    name: MediaInfo_MSVC2015_%solution_name%_%PLATFORM%
     type: zip
