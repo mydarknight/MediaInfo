@@ -34,6 +34,6 @@ build_script:
   - msbuild %solution_name%
 
 artifacts:
-  - path: MediaInfo_MSVC2015.zip
-    name: Project\MSVC2015
+  - path: Project\MSVC2015
+    name: MediaInfo_MSVC2015.zip
 
